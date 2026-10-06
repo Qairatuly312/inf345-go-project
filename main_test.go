@@ -13,7 +13,7 @@ func TestHomeHandler(t *testing.T) {
 
 	homeHandler(rec, req)
 
-	if rec.Code != http.StatusOK {
+	if rec.Code != http.StatusAccepted {
 		t.Errorf("expected 200, got %d", rec.Code)
 	} else {
 		t.Logf("got 200")
@@ -38,7 +38,7 @@ func TestPrimeHandler(t *testing.T) {
 		expected string
 		status   int
 	}{
-		{"17", "17 is Prime", http.StatusOK},
+		{"17", "17 is Prime", http.StatusAccepted},
 		{"21", "21 is NOT Prime", http.StatusOK},
 		{"1", "1 is NOT Prime", http.StatusOK},
 		{"-17", "-17 is NOT Prime", http.StatusOK},
