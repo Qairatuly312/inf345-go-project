@@ -14,6 +14,13 @@ func main() {
 	http.HandleFunc("/healthz", healthHandler)
 	http.HandleFunc("/prime", primeHandler)
 
+	apiKey := os.Getenv("API_KEY")
+	if apiKey == "" {
+		log.Print("API_KEY is not configured")
+	} else {
+		log.Print("API_KEY is configured")
+	}
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
@@ -32,7 +39,14 @@ type HomeResponse struct {
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	err := json.NewEncoder(w).Encode(HomeResponse{Answer: "This is IsPrime mini project"})
+	greeting := os.Getenv("GREETING")
+	if greeting == "" {
+		greeting = "hello"
+	}
+
+	err := json.NewEncoder(w).Encode(HomeResponse{
+		Answer: greeting + " - This is IsPrime mini project",
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
