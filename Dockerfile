@@ -17,7 +17,7 @@ FROM gcr.io/distroless/static-debian13:nonroot
 
 COPY --from=build /app /app
 
-USER nonroot:nonroot
+USER 65532:65532
 
 ENV PORT=8080
 EXPOSE 8080
